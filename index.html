@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pribadi - Retro Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 50%, #fab1a0 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { top: 60%; right: 15%; animation-delay: 3s; }
+        .shape:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 6s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-card {
+            background: white;
+            border: 4px solid #2d3436;
+            overflow: hidden;
+            box-shadow: 8px 8px 0px rgba(45, 52, 54, 0.3);
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0px rgba(45, 52, 54, 0.3);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #ff7675 0%, #fd79a8 100%);
+            padding: 50px 30px;
+            text-align: center;
+            position: relative;
+            border-bottom: 4px solid #2d3436;
+        }
+
+        .hero::after {
+            content: '⚡';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2.5em;
+            animation: pulse 2s infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #fdcb6e 0%, #ffeaa7 100%);
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            border: 4px solid #2d3436;
+            box-shadow: 6px 6px 0px rgba(45, 52, 54, 0.5);
+            image-rendering: pixelated;
+            animation: bounce 3s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-weight: 400;
+            text-shadow: 4px 4px 0px rgba(45, 52, 54, 0.8);
+            line-height: 1.6;
+        }
+
+        .hero p {
+            color: #2d3436;
+            font-size: 0.5em;
+            line-height: 1.8;
+        }
+
+        .section {
+            background: white;
+            border: 4px solid #2d3436;
+            padding: 30px 25px;
+            margin-bottom: 25px;
+            box-shadow: 8px 8px 0px rgba(45, 52, 54, 0.3);
+            position: relative;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 15px;
+            height: 15px;
+            background: #ff6b6b;
+            border: 2px solid #2d3436;
+        }
+
+        .section-title {
+            color: #d63031;
+            font-size: 0.85em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 400;
+            line-height: 1.6;
+            padding-bottom: 15px;
+            border-bottom: 3px dashed #2d3436;
+        }
+
+        .section-title span {
+            font-size: 1.3em;
+        }
+
+        .about-box {
+            background: linear-gradient(135deg, #74b9ff 0%, #a29bfe 100%);
+            border: 3px solid #2d3436;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 4px 4px 0px rgba(45, 52, 54, 0.2);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .avatar .about-photo {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #2d3436;
+            box-shadow: 4px 4px 0px rgba(45, 52, 54, 0.3);
+            flex-shrink: 0;
+            object-fit: cover;
+            image-rendering: auto;
+            background: #dfe6e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            color: #2d3436;
+        }
+        .about-box .about-photo {
+            width: 150px;
+            height: 150px;
+            border: 4px solid #2d3436;
+            box-shadow: 4px 4px 0px rgba(45, 52, 54, 0.3);
+            flex-shrink: 0;
+            object-fit: cover;
+            image-rendering: auto;
+            background: #dfe6e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            color: #2d3436;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .about-text p {
+            color: white;
+            font-size: 0.45em;
+            line-height: 2;
+            text-shadow: 2px 2px 0px rgba(45, 52, 54, 0.3);
+        }
+
+        .hobi-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+        }
+
+        .hobi-item {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 25px 20px;
+            border: 3px solid #2d3436;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px rgba(45, 52, 54, 0.3);
+            position: relative;
+        }
+
+        .hobi-item::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            background: #ff6b6b;
+            border: 2px solid #2d3436;
+        }
+
+        .hobi-item:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0px rgba(45, 52, 54, 0.3);
+            background: linear-gradient(135deg, #fdcb6e 0%, #ffeaa7 100%);
+        }
+
+        .hobi-item .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            image-rendering: pixelated;
+        }
+
+        .hobi-item h3 {
+            color: #d63031;
+            font-size: 0.6em;
+            margin-bottom: 10px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .hobi-item p {
+            color: #2d3436;
+            font-size: 0.4em;
+            line-height: 1.6;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #74b9ff 0%, #a29bfe 100%);
+            border: 4px solid #2d3436;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px rgba(45, 52, 54, 0.3);
+            image-rendering: pixelated;
+            position: relative;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 12px;
+            height: 12px;
+            background: #ffeaa7;
+            border: 2px solid #2d3436;
+        }
+
+        .gallery-item:hover {
+            transform: translate(-4px, -4px) rotate(-5deg);
+            box-shadow: 8px 8px 0px rgba(45, 52, 54, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Gallery Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border: 4px solid #ffeaa7;
+            box-shadow: 0 0 30px rgba(255, 234, 167, 0.5);
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 3em;
+            color: #ffeaa7;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Press Start 2P', cursive;
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-modal:hover {
+            color: #ff6b6b;
+            transform: scale(1.2);
+        }
+
+        .dream-box {
+            background: linear-gradient(135deg, #ee5a6f 0%, #f29263 100%);
+            padding: 25px;
+            border: 4px solid #2d3436;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 4px 4px 0px rgba(45, 52, 54, 0.3);
+        }
+
+        .dream-box::before {
+            content: '⭐';
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.15;
+            right: -20px;
+            top: -20px;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .dream-box h3 {
+            color: white;
+            font-size: 0.75em;
+            margin-bottom: 15px;
+            font-weight: 400;
+            line-height: 1.6;
+            text-shadow: 3px 3px 0px rgba(45, 52, 54, 0.5);
+        }
+
+        .dream-box p {
+            color: white;
+            line-height: 2;
+            font-size: 0.5em;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .social-item {
+            background: linear-gradient(135deg, #fab1a0 0%, #ffeaa7 100%);
+            border: 3px solid #2d3436;
+            padding: 20px 18px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 4px 4px 0px rgba(45, 52, 54, 0.3);
+        }
+
+        .social-item:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0px rgba(45, 52, 54, 0.3);
+        }
+
+        .social-item .icon {
+            font-size: 2.5em;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-item .icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .social-item .info {
+            flex: 1;
+        }
+
+        .social-item .platform {
+            color: #d63031;
+            font-size: 0.5em;
+            margin-bottom: 8px;
+        }
+
+        .social-item .username {
+            color: #2d3436;
+            font-size: 0.4em;
+            word-break: break-all;
+        }
+
+        .contact-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .contact-item {
+            background: linear-gradient(135deg, #74b9ff 0%, #a29bfe 100%);
+            border: 3px solid #2d3436;
+            padding: 20px 18px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 4px 4px 0px rgba(45, 52, 54, 0.3);
+        }
+
+        .contact-item .icon {
+            font-size: 2.5em;
+            flex-shrink: 0;
+        }
+
+        .contact-item .info {
+            flex: 1;
+        }
+
+        .contact-item .label {
+            color: white;
+            font-size: 0.5em;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 0px rgba(45, 52, 54, 0.3);
+        }
+
+        .contact-item .value {
+            color: #2d3436;
+            font-size: 0.5em;
+            word-break: break-all;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #2d3436;
+            border-top: 3px dashed #2d3436;
+            margin-top: 20px;
+        }
+
+        .footer p {
+            font-size: 0.5em;
+            line-height: 2;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .hero {
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 1.1em;
+            }
+
+            .hero p {
+                font-size: 0.45em;
+            }
+
+            .avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 50px;
+            }
+
+            .section {
+                padding: 25px 20px;
+            }
+
+            .section-title {
+                font-size: 0.75em;
+            }
+
+            .about-box {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-photo {
+                width: 180px;
+                height: 180px;
+                margin: 0 auto;
+            }
+
+            .hobi-list {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 15px;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .gallery-item {
+                font-size: 5em;
+            }
+
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .close-modal {
+                font-size: 2em;
+                top: 15px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 0.9em;
+            }
+
+            .section-title {
+                font-size: 0.65em;
+            }
+
+            .hobi-list {
+                grid-template-columns: 1fr;
+            }
+
+            .avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 45px;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .gallery-item {
+                font-size: 6em;
+                min-height: 250px;
+            }
+
+            .about-photo {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape" style="font-size: 80px;">🌸</div>
+        <div class="shape" style="font-size: 70px;">💮</div>
+        <div class="shape" style="font-size: 90px;">🌺</div>
+    </div>
+
+    <div class="container">
+        <div class="profile-card">
+            <div class="hero">
+                <div class="avatar">
+                    <img src="http://img1.wikia.nocookie.net/__cb20140416111853/jedipedia/de/images/7/74/Obi-Portrait.png" alt="Avatar" class="about-photo">
+                    
+                </div>
+              <h1>Araku</h1>
+                <p>Suka Anime • Keren • Sop boi • Suka Gambar (kalau mau)</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <span>👤</span>
+                <span>About Me</span>
+            </div>
+            <div class="about-box">
+                <div class="about-photo">
+                     <img src="http://img1.wikia.nocookie.net/__cb20140416111853/jedipedia/de/images/7/74/Obi-Portrait.png" alt="Foto Profil" class="about-photo">
+                    
+                </div>
+                <div class="about-text">
+                    <p>Halo! Saya pecinta anime dan seni yang passionate dalam menggambar. Saya percaya setiap goresan pensil adalah ekspresi jiwa, dan setiap karya adalah perjalanan menuju mimpi!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <span>🎨</span>
+               
+<span>Hobi</span>
+            </div>
+            <div class="hobi-list">
+                <div class="hobi-item">
+                    <div class="icon">✏️</div>
+                    <h3>Menggambar</h3>
+                    <p>Gambar itu my hobi aku guweh tapi males soalnya susah jirr</p>
+                </div>
+                <div class="hobi-item">
+                    <div class="icon">📺</div>
+                    <h3>Nonton Anime</h3>
+                    <p>Penyuka genre Action & Romance cuiiii</p>
+                </div>
+                <div class="hobi-item">
+                    <div class="icon">📖</div>
+                    <h3>Baca Manga</h3>
+                    <p>Suka baca manga juga buat liat karya dari para mangaka dan menikmati karya nya</p>
+                </div>
+                <div class="hobi-item">
+                    <div class="icon">🎮</div>
+                    <h3>Main Game</h3>
+                    <p>siapa coba yang gak suka main game, game favoritku ituh ZZZ</p>
+                </div>
+            </div>
+            <div style="margin-top: 35px;">
+                <div class="section-title">
+                    <span>🖼️</span>
+                    <span>Galeri Karya</span>
+                </div>
+                <div class="gallery">
+                    <div class="gallery-item" onclick="openModal(this)">
+                        <!-- Ganti dengan <img src="gambar1.jpg" alt="Karya 1"> -->
+                        🎨
+                    </div>
+                    <div class="gallery-item" onclick="openModal(this)">
+                        <!-- Ganti dengan <img src="gambar2.jpg" alt="Karya 2"> -->
+                        ✨
+                    </div>
+                    <div class="gallery-item" onclick="openModal(this)">
+                        <!-- Ganti dengan <img src="gambar3.jpg" alt="Karya 3"> -->
+                        🖌️
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <span>⭐</span>
+                <span>Cita-Cita</span>
+            </div>
+            <div class="dream-box">
+                <h3>Mimpi Besar akuh 🌟</h3>
+                <p>
+                    Aku bercita-cita jadi seorang Mangaka profesional yang karyanya menginspirasi banyak orang. aku pengen ngeciptain cerita dan karakter sendiri yang bermakna, kayak manga dan anime favorit aku yang udah mengubah hidup aku. Suatu hari nanti, aku harap aku bisa menerbitkan manga sendiri dan berbagi karya dengan dunia!
+                </p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <span>🌐</span>
+                <span>Social Media</span>
+            </div>
+            <div class="social-grid">
+                <a href="https://x.com/Arakuken" class="social-item" target="_blank">
+                    <div class="icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                            <!-- Twitter Bird Simple -->
+                            <path d="M8 3 L12 8 L16 3" fill="#74b9ff" stroke="#2d3436" stroke-width="2"/>
+                            <circle cx="12" cy="10" r="6" fill="#74b9ff" stroke="#2d3436" stroke-width="2"/>
+                            <circle cx="10" cy="9" r="1.5" fill="#2d3436"/>
+                            <circle cx="14" cy="9" r="1.5" fill="#2d3436"/>
+                            <path d="M 9 12 Q 12 13.5 15 12" stroke="#2d3436" stroke-width="1.5" fill="none"/>
+                            <path d="M 6 14 L 4 16" stroke="#2d3436" stroke-width="2"/>
+                            <path d="M 18 14 L 20 16" stroke="#2d3436" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="info">
+                        <div class="platform">Twitter</div>
+                        <div class="username">@Arakuken</div>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/araku_ken?igsh=eHA4dWVvcGloOWo=" class="social-item" target="_blank">
+                    <div class="icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                            <!-- Instagram Camera -->
+                            <rect x="6" y="7" width="12" height="12" rx="3" fill="#fd79a8" stroke="#2d3436" stroke-width="2"/>
+                            <circle cx="12" cy="13" r="3" fill="white" stroke="#2d3436" stroke-width="2"/>
+                            <circle cx="16" cy="9" r="1" fill="white"/>
+                            <rect x="9" y="4" width="6" height="3" fill="#fd79a8" stroke="#2d3436" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="info">
+                        <div class="platform">Instagram</div>
+                        <div class="username">@araku_ken</div>
+                    </div>
+                </a>
+                <a href="https://youtube.com/@araku-ken?si=YGon5AGmYyKTMEoL" class="social-item" target="_blank">
+                    <div class="icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                            <!-- YouTube Play Button -->
+                            <rect x="4" y="6" width="16" height="12" rx="2" fill="#ff6b6b" stroke="#2d3436" stroke-width="2"/>
+                            <path d="M 10 9 L 10 15 L 16 12 Z" fill="white" stroke="#2d3436" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <div class="info">
+                        <div class="platform">YouTube</div>
+                        <div class="username">@Araku</div>
+                    </div>
+                </a>
+                <a href="https://www.tiktok.com/@araku_ken?_r=1&_t=ZS-924bOUosZDc" class="social-item" target="_blank">
+                    <div class="icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                            <!-- TikTok Musical Note -->
+                            <circle cx="10" cy="14" r="4" fill="#a29bfe" stroke="#2d3436" stroke-width="2"/>
+                            <circle cx="16" cy="10" r="3" fill="#a29bfe" stroke="#2d3436" stroke-width="2"/>
+                            <path d="M 14 10 L 14 14" stroke="#2d3436" stroke-width="2"/>
+                            <path d="M 14 6 L 14 10 L 17 8" stroke="#2d3436" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="info">
+                        <div class="platform">TikTok</div>
+                        <div class="username">@araku_ken</div>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/share/1Cjb4WxBZT/" class="social-item" target="_blank">
+                    <div class="icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                            <!-- Facebook F Letter -->
+                            <rect x="6" y="4" width="12" height="16" rx="2" fill="#74b9ff" stroke="#2d3436" stroke-width="2"/>
+                            <path d="M 10 8 L 14 8 M 10 12 L 14 12 M 10 8 L 10 16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="info">
+                        <div class="platform">Facebook</div>
+                        <div class="username">araku ken</div>
+                    </div>
+                </a>
+                <a href="https://mangaplus-creators.jp/authors/27270741" class="social-item" target="_blank">
+                    <div class="icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                            <!-- Kertas/Paper -->
+                            <rect x="5" y="3" width="14" height="18" rx="1" fill="white" stroke="#2d3436" stroke-width="2"/>
+                            <path d="M 19 3 L 19 7 L 15 7 Z" fill="#ffeaa7" stroke="#2d3436" stroke-width="1.5"/>
+                            <line x1="15" y1="7" x2="19" y2="3" stroke="#2d3436" stroke-width="1.5"/>
+                            <line x1="8" y1="10" x2="16" y2="10" stroke="#ff6b6b" stroke-width="2"/>
+                            <line x1="8" y1="13" x2="16" y2="13" stroke="#74b9ff" stroke-width="2"/>
+                            <line x1="8" y1="16" x2="13" y2="16" stroke="#a29bfe" stroke-width="2"/>
+                            <circle cx="9" cy="10" r="0.8" fill="#ff6b6b"/>
+                            <circle cx="15" cy="13" r="0.8" fill="#74b9ff"/>
+                        </svg>
+                    </div>
+                    <div class="info">
+                        <div class="platform">Manga Plus</div>
+                        <div class="username">Araku</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <span>📧</span>
+                <span>Kontak</span>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="icon">✉️</div>
+                    <div class="info">
+                        <div class="label">Email</div>
+                        <div class="value">arakuken@gmail.com</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">📱</div>
+                    <div class="info">
+                        <div class="label">Phone</div>
+                        <div class="value">+62 857 1926 2088</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">📍</div>
+                    <div class="info">
+                        <div class="label">Location</div>
+                        <div class="value">Karawang, Indonesia</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>✨ "Follow your dreams and never give up!" ✨</p>
+            <p style="margin-top: 15px; opacity: 0.7;">Made by Araku 2025</p>
+        </div>
+    </div>
+</body>
+</html>
